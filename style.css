@@ -4,6 +4,7 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
+    background-image: linear-gradient( 180.4deg,  rgba(0,6,10,1) 1%, rgba(1,190,237,1) 91.4% );
 }
 *{
     box-sizing: border-box;
@@ -30,12 +31,24 @@ body{
 .yozuv{
     width: 100%;
     height: 80px;
-    border: 1px solid red;
-    color: red;
+    border: 1px solid white;
+    border-radius: 16px;
+    color: white;
+    background-color: transparent;
+    -webkit-border-radius: 16px;
+    -moz-border-radius: 16px;
+    -ms-border-radius: 16px;
+    -o-border-radius: 16px;
+    text-align: center;
+    font-size: 22px;
 }
 .test{
     width: 95%;
     height: 80px;
-    background-color: yellow;
+    background-color: transparent;
+    border: 1px solid white;
+    border-radius: 16px;
+    -webkit-border-radius: 16px;
+    -moz-border-radius: 16px;
     cursor: pointer;
 }
