@@ -15,5 +15,27 @@ body{
 }
 .wrapper{
     width: 400px;
-    height: 400px;
+    height: 500px;
+    border: 1px solid #000;
+    border-radius: 16px;
+    -webkit-border-radius: 16px;
+    -moz-border-radius: 16px;
+    -ms-border-radius: 16px;
+    -o-border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+.yozuv{
+    width: 100%;
+    height: 80px;
+    border: 1px solid red;
+    color: red;
+}
+.test{
+    width: 95%;
+    height: 80px;
+    background-color: yellow;
+    cursor: pointer;
 }
