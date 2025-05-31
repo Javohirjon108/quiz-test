@@ -13,56 +13,83 @@
   <div class="wrapper">
     <input type="text" class="yozuv" readonly>
   </div>
+
+  <script>
+    let quiz = ["HTML nima ?", "HTML hujjati qaysi teg bilan boshlanadi ?", "Veb sahifaning asosiy qismi qaysi tegda yoziladi ?", "Rasm qo'shish uchun qaysi teg ishlatiladi ?", "Giperhavola (link) qaysi teg bilan yoziladi ?", "HTML formasi qanday element bilan boshlanadi ?", " Sarlavhalar uchun ishlatiladigan teglar ?", "HTMLda paragraf qanday yoziladi ?", " Ro'yxat elementlari qaysi teglar bilan yoziladi ?", "HTMLda atribut nima ?", "Fonga rang berish uchun qaysi xossa ishlatiladi ?"];
+    let answers = ["Veb sahifalarni tuzish uchun kerak", "!DOCTYPE html", "body", "img", "a", "form", "h1-h6", "p", "ul, ol, li", "Elementga + ma'lumot beruvchi", "background-color"];
+    let distraction = ["div", "span", "k", "l", "header", "footer", "section", "Lorem", "sumalak", "head", "title", "link", "script", "style", "nav", "article", "aside", "g1", "g2", "g3", "g4", "g5", "g6"];
+
+    let savol = document.querySelector(".yozuv");
+    let wrapper = document.querySelector(".wrapper");
+    let time = document.querySelector(".time");
+    let sec;
+    let set;
+    let rand;
+
+    // Funksiya test variantlarini yaratadi va ko'rsatadi
+    function vaqt() {
+      wrapper.innerHTML = '<input type="text" class="yozuv" readonly>'; // Oldingi variantlarni tozalash
+
+      rand = Math.trunc(Math.random() * quiz.length);
+      document.querySelector(".yozuv").value = quiz[rand];
+
+      let test = [
+        `<div class="test"> ${distraction[Math.floor(Math.random() * distraction.length)]} </div>`,
+        `<div class="test"> ${distraction[Math.floor(Math.random() * distraction.length)]} </div>`,
+        `<div class="test javob"> ${answers[rand]} </div>`,
+        `<div class="test"> ${distraction[Math.floor(Math.random() * distraction.length)]} </div>`
+      ];
+      test.sort(() => Math.random() - 0.5);
+      wrap(test);
+
+      // Vaqtni tiklash
+      sec = 30;
+      clearInterval(set);
+      set = setInterval(() => {
+        time.innerHTML = sec--;
+        if (sec < 0) {
+          clearInterval(set);
+          alert("Vaqtingiz tugadi");
+          vaqt(); // yangi savol
+        }
+      }, 1000);
+    }
+
+    // Test variantlarini ko'rsatish
+    function wrap(items) {
+      items.forEach(val => {
+        wrapper.insertAdjacentHTML("beforeend", val);
+      });
+    }
+
+    // To'g'ri yoki noto'g'ri variant bosilganda
+    wrapper.addEventListener("click", (e) => {
+      if (e.target.classList.contains("test")) {
+        clearInterval(set);
+        if (e.target.classList.contains("javob")) {
+          e.target.classList.add("true");
+          setTimeout(() => {
+            alert("To'g'ri javob!");
+            vaqt();
+          }, 500);
+        } else {
+          e.target.classList.add("false");
+          setTimeout(() => {
+            alert("Noto'g'ri javob.");
+            vaqt();
+          }, 500);
+        }
+      }
+    });
+
+    // "R" tugmasi bosilganda reload
+    document.body.addEventListener("keydown", (e) => {
+      if (e.key === "r" || e.key === "R") window.location.reload();
+    });
+
+    // Birinchi testni boshlash
+    vaqt();
+  </script>
 </body>
-<script>
-  let quiz = ["HTML nima ?", "HTML hujjati qaysi teg bilan boshlanadi ?", "Veb sahifaning asosiy qismi qaysi tegda yoziladi ?", "Rasm qo'shish uchun qaysi teg ishlatiladi ?", "Giperhavola (link) qaysi teg bilan yoziladi ?", "HTML formasi qanday element bilan boshlanadi ?", " Sarlavhalar uchun ishlatiladigan teglar ?", "HTMLda paragraf qanday yoziladi ?", " Ro'yxat elementlari qaysi teglar bilan yoziladi ?", "HTMLda atribut nima ?", "Fonga rang berish uchun qaysi xossa ishlatiladi ?"];
-  let answers = ["Veb sahifalarni tuzish uchun kerak", "!DOCTYPE html", "body", "img", "a", "form", "h1-h6", "p", "ul, ol, li", "Elementga + ma'lumot beruvchi", "background-color"];
-  let distraction = ["div", "span", "k", "l", "header", "footer", "section", "Lorem", "sumalak", "head", "title", "link", "script", "style", "nav", "article", "aside", "g1", "g2", "g3", "g4", "g5", "g6"];
-  let savol = document.querySelector(".yozuv");
-  let rand = Math.trunc(Math.random() * quiz.length);
-  savol.value = quiz[rand];
-  let test = [
-    `<div class="test"> ${distraction[Math.floor(Math.random() * distraction.length)]} </div>`,
-    `<div class="test"> ${distraction[Math.floor(Math.random() * distraction.length)]} </div>`,
-    `<div class="test javob"> ${answers[rand]} </div>`,
-    `<div class="test"> ${distraction[Math.floor(Math.random() * distraction.length)]} </div>`
-  ];
-  document.body.addEventListener("keydown", (e) => {
-    if (e.key === "r" || e.key === "R") { window.location.reload() };
-  });
-  let wrapper = document.querySelector(".wrapper");
-  test.sort(() => Math.random() - 0.5);
-  test.forEach((val) => {
-    wrapper.insertAdjacentHTML("beforeend", val);
-  });
-  let javob = document.querySelector(".javob");
-  let time = document.querySelector(".time");
-  let sec = 30;
-  let set = setInterval(() => {
-    time.innerHTML = sec--;
-    if (sec < 0) {
-      clearInterval(set);
-      alert("Vaqtingiz tugadi");
-      window.location.reload();
-    };
-  }, 1000);
-  wrapper.addEventListener("click", (e) => {
-    if (e.target.className === "test javob") {
-      e.target.classList.add("true");
-      clearInterval(set);
-      setTimeout(() => {
-        window.location.reload()
-        alert("To'g'ri javob");
-      }, 1000);
-    } else if (e.target.className === "test") {
-      e.target.classList.add("false");
-      clearInterval(set);
-      setTimeout(() => {
-        alert("Noto'g'ri javob");
-        window.location.reload()
-      }, 1000);
-    };
-  });
-</script>
 
 </html>

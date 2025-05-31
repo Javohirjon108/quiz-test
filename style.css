@@ -69,12 +69,14 @@ body {
     font-size: 22px;
     line-height: 80px;
 }
-.true{
+
+.true {
     background-color: rgb(25, 221, 25);
     color: white;
     border: none;
 }
-.false{
+
+.false {
     background-color: rgb(210, 28, 28);
     color: white;
     border: none;
